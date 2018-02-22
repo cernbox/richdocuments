@@ -68,7 +68,7 @@ class Wopi extends \OCA\Richdocuments\Db{
 					\OCP\Security\ISecureRandom::CHAR_LOWER . \OCP\Security\ISecureRandom::CHAR_UPPER .
 					\OCP\Security\ISecureRandom::CHAR_DIGITS);
 
-		\OC::$server->getLogger()->debug('Issuing token for {editor} file {fileId}, version {version} owned by {owner}, path {path}: {token}',
+		\OC::$server->getLogger()->error('Issuing token for {editor} file {fileId}, version {version} owned by {owner}, path {path}: {token}',
 		[ 'owner' => $owner, 'editor' => $editor, 'fileId' => $fileId, 'version' => $version, 'path' => $path, 'token' => $token ]);
 
 		$wopi = new \OCA\Richdocuments\Db\Wopi([
@@ -99,7 +99,7 @@ class Wopi extends \OCA\Richdocuments\Db{
 
 		$wopi = new Wopi();
 		$row = $wopi->loadBy('token', $token)->getData();
-		\OC::$server->getLogger()->debug('Loaded WOPI Token record: {row}.', [ 'row' => $row ]);
+		\OC::$server->getLogger()->error('Loaded WOPI Token record: {row}.', [ 'row' => $row ]);
 		if (count($row) == 0)
 		{
 			// Invalid token.

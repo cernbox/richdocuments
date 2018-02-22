@@ -188,10 +188,12 @@ class File {
 		}
 		//TODO check if it is a valid odt
 		
+		/*
 		$mimetype = $this->ownerView->getMimeType($this->path);
 		if (!Filter::isSupportedMimetype($mimetype)){
 			throw new \Exception( $this->path . ' is ' . $mimetype . ' and is not supported by RichDocuments app');
 		}
+		*/
 	}
 	
 	protected function getPassword(){

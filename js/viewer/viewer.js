@@ -87,6 +87,10 @@ var odfViewer = {
 	},
 
 	registerFilesMenu: function(response) {
+	        if(localStorage.getItem('office_engine') !== 'collabora') {
+			return;
+	        }
+
 		var ooxml = response.doc_format === 'ooxml';
 
 		var docExt, spreadsheetExt, presentationExt;
@@ -111,6 +115,9 @@ var odfViewer = {
 			OCA.FilesLOMenu = {
 				attach: function(newFileMenu) {
 					var self = this;
+					if(localStorage.getItem('office_engine') !== 'collabora') {
+						return;
+					}
 
 					newFileMenu.addMenuEntry({
 						id: 'add-' + docExt,
@@ -170,6 +177,10 @@ var odfViewer = {
 };
 
 $(document).ready(function() {
+	if(localStorage.getItem('office_engine') !== 'collabora') {
+		return;
+	}
+
 	if ( typeof OCA !== 'undefined'
 		&& typeof OCA.Files !== 'undefined'
 		&& typeof OCA.Files.fileActions !== 'undefined'

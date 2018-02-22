@@ -562,7 +562,7 @@ class DocumentController extends Controller {
 		$token = $this->request->getParam('access_token');
 
 		list($fileId, , $version) = Helper::parseFileId($fileId);
-		\OC::$server->getLogger()->debug('Getting info about file {fileId}, version {version} by token {token}.', [ 'app' => $this->appName, 'fileId' => $fileId, 'version' => $version, 'token' => $token ]);
+		\OC::$server->getLogger()->error('Getting info about file {fileId}, version {version} by token {token}.', [ 'app' => $this->appName, 'fileId' => $fileId, 'version' => $version, 'token' => $token ]);
 
 		$row = new Db\Wopi();
 		$row->loadBy('token', $token);
@@ -575,7 +575,7 @@ class DocumentController extends Controller {
 
 		// Login the user to see his mount locations
 		$this->loginUser($res['owner']);
-		$view = new \OC\Files\View('/' . $res['owner'] . '/files');
+		$view = new \OC\Files\View('/files');
 		$info = $view->getFileInfo($res['path']);
 		$this->logoutUser();
 
@@ -622,8 +622,10 @@ class DocumentController extends Controller {
 
 		// Login the user to see his mount locations
 		$this->loginUser($ownerid);
-		$view = new \OC\Files\View('/' . $res['owner'] . '/files');
+		$view = new \OC\Files\View('/files');
+		$this->logger->error("START");
 		$info = $view->getFileInfo($res['path']);
+		$this->logger->error("END");
 
 		if (!$info) {
 			http_response_code(404);
